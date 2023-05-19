@@ -1,0 +1,21 @@
+name: Citation update
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Self test
+        id: generateCitation
+
+        uses: DanNBullock/citeas-on-requirements@master
+
+        # Put an example of mandatory inputs here
+        with:
+          inputFile: "requirements.txt"
+      - name: Commit changes
+        uses: test-room-7/action-update-file@v1
+        with:
+          file-path: 'ACKNOWLEDGMENTS.md'
+          commit-msg: Update ACKNOWLEDGMENTS.md
+          github-token: ${{ secrets.GITHUB_TOKEN }}
